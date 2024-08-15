@@ -1,11 +1,14 @@
 import BookMessage from "./features/BookMessages/containers/BookMessage.tsx";
 import './App.css'
+import {Container} from "@mui/material";
 
 const App = () => {
 
   return (
     <>
-      <BookMessage/>
+        <Container maxWidth="xl" component="main">
+            <BookMessage/>
+        </Container>
     </>
   )
 }
