@@ -2,7 +2,7 @@ import express from "express";
 import fileDb from "./fileDb";
 import cors from 'cors';
 import config from "./config";
-import GuestBooksRouter from "./routers/products";
+import GuestBooksRouter from "./routers/BookMessages";
 
 const app = express();
 const port = 8000;
