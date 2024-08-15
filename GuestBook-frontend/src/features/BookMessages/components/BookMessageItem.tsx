@@ -49,7 +49,9 @@ const BookMessageItem: React.FC<Props> = ({author,message,image}) => {
                     <Typography sx={{padding: '8px 16px', fontSize: '20px',}}>
                         {message}
                     </Typography>
-                    <ImageCardMedia image={cardImage} title={author}/>
+                    {cardImage && (
+                        <ImageCardMedia image={cardImage} title={author}/>
+                    )}
                 </CardContent>
             </Card>
         </Grid>
