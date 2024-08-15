@@ -83,7 +83,6 @@ const BookMessageForm:React.FC<Props> = ({onSubmit, isLoading}) => {
                     <TextField
                         required
                         multiline
-                        minRows={2}
                         label="Message"
                         id="message"
                         name="message"
