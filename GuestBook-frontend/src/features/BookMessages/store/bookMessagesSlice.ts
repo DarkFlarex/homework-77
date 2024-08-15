@@ -1,14 +1,17 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {createBookMessage} from "./bookMessagesThunks.ts";
-
+import {createBookMessage, fetchBookMessages} from "./bookMessagesThunks.ts";
+import {BookMessage} from "../../../types.ts";
 
 
 export interface BookMessagesState {
-
+    items:BookMessage[];
+    itemsFetching:boolean;
     isCreating:boolean;
 }
 
 const initialState: BookMessagesState = {
+    items:[],
+    itemsFetching: false,
     isCreating:false,
 };
 
@@ -17,6 +20,14 @@ export const bookMessagesSlice = createSlice({
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
+        builder.addCase(fetchBookMessages.pending,(state)=>{
+            state.itemsFetching = true;
+        }).addCase(fetchBookMessages.fulfilled,(state,{payload:bookMessages})=>{
+            state.itemsFetching = false;
+            state.items = bookMessages;
+        }).addCase(fetchBookMessages.rejected,(state)=>{
+            state.itemsFetching = false;
+        });
         builder.addCase(createBookMessage.pending,(state)=>{
             state.isCreating = true;
         }).addCase(createBookMessage.fulfilled,(state)=>{
@@ -26,6 +37,8 @@ export const bookMessagesSlice = createSlice({
         });
     },
     selectors:{
+        selectBookMessages:(state)=> state.items,
+        selectBookMessagesFetching:(state)=> state.itemsFetching,
         selectBookMessageCreating:(state)=> state.isCreating,
     }
 });
@@ -33,5 +46,7 @@ export const bookMessagesSlice = createSlice({
 export const BookMessagesReducer = bookMessagesSlice.reducer;
 
 export const{
+    selectBookMessages,
+    selectBookMessagesFetching,
     selectBookMessageCreating,
 } = bookMessagesSlice.selectors;

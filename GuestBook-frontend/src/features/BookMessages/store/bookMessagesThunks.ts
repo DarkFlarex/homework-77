@@ -1,6 +1,14 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import { BookMessageMutation} from "../../../types.ts";
+import {BookMessage, BookMessageMutation} from "../../../types.ts";
 import axiosApi from "../../../axiosApi.ts";
+
+export const fetchBookMessages = createAsyncThunk<BookMessage[]>(
+    'GuestBooks/fetchAll',
+    async ()=>{
+        const {data: bookMessage}= await axiosApi.get<BookMessage[]>('/GuestBooks');
+        return bookMessage;
+    }
+);
 
 export const createBookMessage = createAsyncThunk<void, BookMessageMutation>(
     'GuestBooks/create',
